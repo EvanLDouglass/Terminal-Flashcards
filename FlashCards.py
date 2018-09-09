@@ -19,7 +19,7 @@ firstRun = True
 
 def main():
     """
-    Driver function.
+    Driver function
     """
     # Welcome message
     print('Welcome to "Terminal Flashcards"!')
@@ -33,7 +33,7 @@ def main():
 
 def selectUser():
     """
-    Gives a welcome message and gets info needed to run the program on start.
+    Gets User and Deck name and loads that deck from User directory.
     """
     global Deck
     global User
