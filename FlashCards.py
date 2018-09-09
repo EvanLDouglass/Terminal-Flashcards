@@ -19,7 +19,7 @@ firstRun = True
 
 def main():
     """
-    Main function for program
+    Driver function.
     """
     # Welcome message
     print('Welcome to "Terminal Flashcards"!')
@@ -27,7 +27,7 @@ def main():
     # Initial setup
     selectUser()
     
-    # Display all commands and process response
+    # Display all commands and process response. Repeat as necessary.
     displayMenu()
 
 
@@ -77,7 +77,6 @@ def displayMenu():
 def processCommand():
     """
     Directs given command to appropriate function. Assumes command is valid.
-    command is a string representing a command in the menu
     """
     global Deck
     global User
@@ -126,7 +125,8 @@ def processCommand():
 
 def displayPrompt():
     """
-    Displays a prompt symbol at which commands are given. Commands are validated then returned
+    Displays a prompt symbol at which commands are entered.
+    Returns the validated command as a string.
     """
     validCommands = ["-t", "-a", "-d", "-p", "-s", "-n", "-l", "-u", "-m", "-q"]
     prompt = "--> "
@@ -138,14 +138,16 @@ def displayPrompt():
 
 def test():
     """
-    The core function of the program. Tests your knowledge of the trivia entered into the deck via a flash cards approach.
+    The core function of the program. Tests your knowledge of the trivia entered into the deck via a flashcards.
     """
     # get keys and randomize
     keys = list(ActiveDict.keys())
     random.shuffle(keys)
 
+    # instructions
     print("Press Enter to flip cards and move to next card. Enter '-q' at any time to return to the menu.")
     print("====================")  # top division
+    
     # for each key
     for key in keys:
         print(key)
