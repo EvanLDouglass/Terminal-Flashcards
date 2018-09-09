@@ -107,8 +107,6 @@ def processCommand():
         loadDeck(Deck, User)
 
     elif command == "-u":
-        User = input("User: ")
-        Deck = input("Deck: ")
         selectUser()
 
     elif command == "-m":
