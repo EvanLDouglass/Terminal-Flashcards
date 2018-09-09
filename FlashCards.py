@@ -147,7 +147,7 @@ def test():
     # instructions
     print("Press Enter to flip cards and move to next card. Enter '-q' at any time to return to the menu.")
     print("====================")  # top division
-    
+
     # for each key
     for key in keys:
         print(key)
@@ -211,6 +211,7 @@ def printDeck():
     """
     Prints the full current deck.
     """
+    # count cards as printed
     num = 1
     for key, value in ActiveDict.items():
         print("Card", str(num) + ":")
@@ -223,7 +224,7 @@ def printDeck():
 
 def saveDeck():
     """
-    Uses a .txt file to store the current deck long term
+    Uses a .txt file to store the current deck long term.
     """
     global User
     global Deck
@@ -300,7 +301,7 @@ def loadDeck(deckName, username, new=False):
 
     if not firstRun:
         processCommand()
-    else: # is first run
+    else:  # is first run
         firstRun = False
 
 
