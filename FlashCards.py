@@ -22,13 +22,14 @@ def main():
     Driver function
     """
     # Welcome message
-    print('Welcome to "Terminal Flashcards"!')
+    print('Welcome to Terminal Flashcards!')
 
     # Initial setup
     selectUser()
     
     # Display all commands and process response. Repeat as necessary.
     displayMenu()
+    processCommand()
 
 
 def selectUser():
@@ -71,8 +72,6 @@ def displayMenu():
     print("\t-m Display menu")
     print("\t-q Quit program")
 
-    processCommand()
-
 
 def processCommand():
     """
@@ -85,35 +84,45 @@ def processCommand():
 
     if command == "-t":
         test()
+        processCommand()
 
     elif command == "-a":
         addCard()
+        processCommand()
 
     elif command == "-d":
         deleteCard()
+        processCommand()
 
     elif command == "-p":
         printDeck()
+        processCommand()
 
     elif command == "-s":
         saveDeck()
+        processCommand()
 
     elif command == "-n":
         Deck = input("Enter new deck name: ")
         loadDeck(Deck, User, new=True)
+        processCommand()
 
     elif command == "-l":
         Deck = input("Ender deck name: ")
         loadDeck(Deck, User)
+        processCommand()
 
     elif command == "-u":
         selectUser()
+        displayMenu()
+        processCommand()
 
     elif command == "-m":
         displayMenu()
+        processCommand()
 
     elif command == "-q":
-        save = input("'-s to save changes: ")
+        save = input("'-s to save changes, Enter to quit without saving: ")
         if save == "-s":
             saveDeck()
         exit()
@@ -159,8 +168,6 @@ def test():
 
     print("End of Test")
 
-    processCommand()
-
 
 def addCard():
     """
@@ -176,8 +183,6 @@ def addCard():
     # input values to activeDict
     ActiveDict[key] = value
     print(key, "added to deck")
-
-    processCommand()
 
 
 def deleteCard():
@@ -202,8 +207,6 @@ def deleteCard():
     else:
         print("Card not found:", key)
 
-    processCommand()
-
 
 def printDeck():
     """
@@ -216,8 +219,6 @@ def printDeck():
         print("\tFront:", key)
         print("\tBack:", value)
         num += 1
-
-    processCommand()
 
 
 def saveDeck():
@@ -237,8 +238,6 @@ def saveDeck():
         deck.write(key + "\n")
         # write value to file
         deck.write(value + "\n")
-
-    processCommand()
 
 
 def loadDeck(deckName, username, new=False):
@@ -267,8 +266,11 @@ def loadDeck(deckName, username, new=False):
             # No reason to keep open, only creating file
             newDeck.close()
         except FileNotFoundError:
-            print("File not found. Does user have directory in Users directory?")
-            selectUser()
+            response = input("File not found. Does user have directory in Users directory? Press Enter to try again, or '-q' to quit: ")
+            if response == "-q":
+                quit()
+            else:
+                selectUser()
     
     # Existing deck
     else:
@@ -291,8 +293,11 @@ def loadDeck(deckName, username, new=False):
                 key = oldDeck.readline().strip()
                 
         except FileNotFoundError:
-            response = input("File not found. Try again or type -q to exit: ")
-            if response != "-q":
+            response = input("File not found. Try again or type '-m' to return to menu: ")
+            if response == "-m":
+                displayMenu()
+                processCommand()
+            else:
                 loadDeck(response, User)
 
     print("Ready")
